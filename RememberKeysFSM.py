@@ -3,7 +3,7 @@ import pygame
 import time
 
 # Define possible states
-class RoomState:
+class RoomStates:
     DOOR_CLOSED = 1
     SOMEONE_ENTERING = 2
     SOMEONE_EXITING = 3
@@ -44,7 +44,7 @@ def ReadDebounce(pin, debounceTime):
                         break
     return value
 
-# 
+# Play audio file
 def PlayReminder:
     # Turn on LED
     GPIO.output(PIN_LED, 1)
@@ -56,24 +56,24 @@ def PlayReminder:
     # Turn off LED
     GPIO.output(PIN_LED, 0)
 
-# 
+# Check state of system
 def CheckState:
     door = ReadDebounce(PIN_MAGNETIC, 0.5)
     pir = ReadDebounce(PIN_PIR, 0.5)
     if door == 0:
-        return RoomState.DOOR_CLOSED
+        return RoomStates.DOOR_CLOSED
     elif pir == 0:
-        return RoomState.SOMEONE_ENTERING
+        return RoomStates.SOMEONE_ENTERING
     else
-        return RoomState.SOMEONE_EXITING
+        return RoomStates.SOMEONE_EXITING
 
 # Wait for door closed
-while CheckState() not RoomState.DOOR_CLOSED:
+while CheckState() not RoomStates.DOOR_CLOSED:
     continue
 
 # Main cycle
 while True:
-    if CheckState() == RoomState.SOMEONE_EXITING:
+    if CheckState() == RoomStates.SOMEONE_EXITING:
         PlayReminder()
-        while CheckState() not RoomState.DOOR_CLOSED:
+        while CheckState() not RoomStates.DOOR_CLOSED:
             continue
