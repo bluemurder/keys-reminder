@@ -37,9 +37,13 @@ try:
             value = GPIO.input(pin)
             while True:
                 time.sleep(debounceTime / 2)
-                if GPIO.input(pin) == value:
+                if GPIO.input(pin) != value:
+                    break
+                else:
                     time.sleep(debounceTime / 2)
-                    if GPIO.input(pin) == value:
+                    if GPIO.input(pin) != value:
+                        break
+                    else:
                         valueReading = False
                         break
         return value
@@ -56,7 +60,7 @@ try:
     def CheckState():
         door = ReadDebounce(PIN_MAGNETIC, 0.5)
         pir = ReadDebounce(PIN_PIR, 0.5)
-        if door == 0:
+        if door == 1:
             return RoomStates.DOOR_CLOSED
         elif pir == 0:
             return RoomStates.SOMEONE_ENTERING
@@ -70,11 +74,13 @@ try:
     # Main cycle
     while True:
         if CheckState() == RoomStates.SOMEONE_EXITING:
+            print "Remember your keys!"
             PlayReminder()
             while CheckState() != RoomStates.DOOR_CLOSED:
                 continue
 
 except:
-    print "Exiting..."
+    print "Goodbye..."
+
 finally:
     GPIO.cleanup()
