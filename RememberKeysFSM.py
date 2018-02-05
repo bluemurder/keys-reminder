@@ -17,6 +17,8 @@ PIN_LED = 7
 pygame.mixer.init()
 pygame.mixer.music.load("/home/pi/myFile.wav")
 
+# Disable GPIO warnings
+GPIO.setwarnings(False)
 # Set pin mode (GPIO.BOARD follows the board numbering, 
 # GPIO.BCM follows the broadcom chipset pin numbering)
 GPIO.setmode(GPIO.BOARD)
@@ -31,7 +33,7 @@ GPIO.setup(PIN_PIR, GPIO.IN)
 def ReadDebounce(pin, debounceTime):
     value = 1
     valueReading = True
-    # Read the pin value, and return it only when it is stable
+    # Read the pin value, and return it only when it seems stable
     # for debouncetime seconds
     while valueReading:
         value = GPIO.input(pin)
