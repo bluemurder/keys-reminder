@@ -15,7 +15,7 @@ PIN_LED = 7
 
 # Load audio file
 pygame.mixer.init()
-pygame.mixer.music.load("/home/pi/myFile.wav")
+pygame.mixer.music.load("/home/pi/tookthekeys.mp3")
 
 # Disable GPIO warnings
 GPIO.setwarnings(False)
