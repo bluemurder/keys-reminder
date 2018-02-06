@@ -2,16 +2,18 @@ import RPi.GPIO as GPIO
 import pygame
 import time
 
-try:
-    # Define possible states
-    class RoomStates:
-        DOOR_CLOSED = 1
-        SOMEONE_ENTERING = 2
-        SOMEONE_EXITING = 3
+# Define possible states
+class RoomStates:
+    DOOR_CLOSED = 1
+    SOMEONE_ENTERING = 2
+    SOMEONE_EXITING = 3
 
-    # Configure pin numbers
-    PIN_MAGNETIC = 8
-    PIN_PIR = 7
+# Configure pin numbers
+PIN_MAGNETIC = 8
+PIN_PIR = 7
+
+try:
+
 
     # Load audio file
     pygame.mixer.init()
