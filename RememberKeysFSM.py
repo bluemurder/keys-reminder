@@ -13,8 +13,6 @@ PIN_MAGNETIC = 8
 PIN_PIR = 7
 
 try:
-
-
     # Load audio file
     pygame.mixer.init()
     pygame.mixer.music.load("/home/pi/tookthekeys.mp3")
@@ -62,8 +60,11 @@ try:
     def CheckState():
         door = ReadDebounce(PIN_MAGNETIC, 0.5)
         pir = ReadDebounce(PIN_PIR, 0.5)
+        # If magnetic contact is closed and input pin
+        # is connected to vcc, door is closed
         if door == 1:
             return RoomStates.DOOR_CLOSED
+        # If 
         elif pir == 0:
             return RoomStates.SOMEONE_ENTERING
         else:
