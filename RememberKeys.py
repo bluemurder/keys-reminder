@@ -98,9 +98,15 @@ try:
     
     # Main cycle
     while True:
-        if CheckState() == RoomStates.SOMEONE_EXITING:
+        currentState = CheckState()
+        # If someone exiting, play audio and wait for door closed
+        if currentState == RoomStates.SOMEONE_EXITING:
             print "Remember your keys!"
             PlayReminder()
+            while CheckState() != RoomStates.DOOR_CLOSED:
+                continue
+        # If someone entering, do nothing and wait for door closed
+        elif currentState == RoomStates.SOMEONE_ENTERING:
             while CheckState() != RoomStates.DOOR_CLOSED:
                 continue
 
